@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 17, 2014 at 10:12 PM
+-- Generation Time: Dec 18, 2014 at 02:12 AM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -19,20 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `java`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ChiTietHoaDon`
---
-
-CREATE TABLE IF NOT EXISTS `ChiTietHoaDon` (
-  `MaChiTietHoaDon` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
-  `MaHoaDon` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
-  `MaMonAn` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
-  `NgayDat` date DEFAULT NULL,
-  `SoLuong` int(11) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -53,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `DatMonAn` (
 --
 
 INSERT INTO `DatMonAn` (`MaHoaDon`, `MaMonAn`, `MaDatMonAn`, `SoLuong`, `NgayDat`) VALUES
-('HD01', 'MO01', 'DA01', 5, '2014-11-24 00:00:00');
+('HD01', 'MO01', 'DA01', 5, '2014-11-24 00:00:00'),
+('2', '2', '1', 2, '0114-11-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -75,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `HoaDon` (
 --
 
 INSERT INTO `HoaDon` (`MaHoaDon`, `TenHoaDon`, `KhachHang`, `NgayTao`, `DaThanhToan`, `TongGia`) VALUES
-('HD01', 'Hoa don 01', 'Tam Huynh', '2014-11-24 00:00:00', b'1', 50000);
+('HD01', 'Hoa don 01', 'Tam Huynh', '2014-11-24 00:00:00', b'1', 50000),
+('1', 'ac', '', '0114-11-18 00:00:00', b'1', 5000);
 
 -- --------------------------------------------------------
 
@@ -84,12 +72,22 @@ INSERT INTO `HoaDon` (`MaHoaDon`, `TenHoaDon`, `KhachHang`, `NgayTao`, `DaThanhT
 --
 
 CREATE TABLE IF NOT EXISTS `KhachHang` (
-  `MaKhachHang` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
-  `TenKhachHang` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `ID` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
+  `HoTen` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `MatKhau` varchar(30) NOT NULL,
   `DiaChi` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
   `Email` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `SoDienThoai` varchar(12) CHARACTER SET utf8 DEFAULT NULL
+  `SoDienThoai` varchar(12) CHARACTER SET utf8 DEFAULT NULL,
+  `LaNhanVien` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KhachHang`
+--
+
+INSERT INTO `KhachHang` (`ID`, `HoTen`, `MatKhau`, `DiaChi`, `Email`, `SoDienThoai`, `LaNhanVien`) VALUES
+('1', 'minis', 'minis', 'minis', 'minis@ubuntu.com', '0101022101', b'0'),
+('2', 'aasa', 'mk', 'dc', 'mo ta', 'ac', b'1');
 
 -- --------------------------------------------------------
 
@@ -100,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `KhachHang` (
 CREATE TABLE IF NOT EXISTS `LoaiMonAn` (
   `MaLoai` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
   `TenLoai` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `VungMien` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `Vung` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
   `MoTa` varchar(50) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -108,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `LoaiMonAn` (
 -- Dumping data for table `LoaiMonAn`
 --
 
-INSERT INTO `LoaiMonAn` (`MaLoai`, `TenLoai`, `VungMien`, `MoTa`) VALUES
+INSERT INTO `LoaiMonAn` (`MaLoai`, `TenLoai`, `Vung`, `MoTa`) VALUES
 ('LO01', 'Com', 'ca nuoc', 'rat pho bien');
 
 -- --------------------------------------------------------
@@ -132,19 +130,6 @@ CREATE TABLE IF NOT EXISTS `MonAn` (
 
 INSERT INTO `MonAn` (`MaMonAn`, `TenMonAn`, `HinhAnh`, `Loai`, `MoTa`, `Gia`) VALUES
 ('MA01', 'COM', 'com.png', 'LO01', 'De an', 500000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `NhanVien`
---
-
-CREATE TABLE IF NOT EXISTS `NhanVien` (
-  `MaNhanVien` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
-  `TenNhanVien` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `DiaChi` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `MatKhau` varchar(30) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
