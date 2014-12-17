@@ -36,11 +36,11 @@ public class HoaDonDatabase {
 	
 	public int InsertHoaDon(HoaDon s) {
 		try {
-			int result = lib.executeUpdate("INSERT INTO HoaDon(MaHoaDon, TenHoaDon, MaKhachHang, NgayTao, DaThanhToan, TongGia) VALUES("
+			int result = lib.executeUpdate("INSERT INTO HoaDon(MaHoaDon, TenHoaDon, KhachHang, NgayTao, DaThanhToan, TongGia) VALUES("
 					+ "'" + s.getMaHoaDon() + "'"
 					+ ",'" + s.getTenHoaDon() + "'"
 					+ ",'" + s.getMaKhachHang() + "'"
-					+ ",'" + s.getNgayTao() + "'"
+					+ ",'"+ s.getNgayTao().getYear() + "/" + s.getNgayTao().getMonth() + "/" + s.getNgayTao().getDate() +"'"
 					+ ","+ s.isDaThanhToan() +""
 					+ ","+ s.getTongGia() +")"
 					);
@@ -75,8 +75,8 @@ public class HoaDonDatabase {
 					+ "TenHoaDon='" + s.getMaHoaDon() + "'"
 				   // + ", MaKhachHang='" + s.getMaKhachHang() + "'"
 				   // + ", NgayTao='" + s.getNgayDat() + "'"
-					+ ", DaThanhToan='" + s.isDaThanhToan() + "'"
-					+ ", TongGia='" + s.getTongGia() + "'"
+					+ ", DaThanhToan=" + s.isDaThanhToan() + ""
+					+ ", TongGia=" + s.getTongGia() + ""
 					+ " WHERE MaHoaDon='"+ s.getMaHoaDon() +"'"
 					);
 			lib.close();

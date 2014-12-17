@@ -16,12 +16,12 @@ public class KhachHangDatabase {
 			KhachHangCollection collection = new KhachHangCollection();
 			while (rs.next()) {
 				KhachHang s = new KhachHang(
-							rs.getString("MaHoaDon")
-							, rs.getString("TenHoaDon")
-							, rs.getString("MaKhachHang")
-							, rs.getDate("NgayTao")
-							, rs.getBoolean("DaThanhToan")
-							, rs.getDouble("TongGia")
+							rs.getString("ID")
+							, rs.getString("HoTen")
+							, rs.getString("MatKhau")
+							, rs.getString("DiaChi")
+							, rs.getString("Email")
+							, rs.getString("SoDienThoai")
 							);
 				collection.addKhachHang(s);
 			}
@@ -36,13 +36,14 @@ public class KhachHangDatabase {
 	
 	public int InsertKhachHang(KhachHang s) {
 		try {
-			int result = lib.executeUpdate("INSERT INTO KhachHang(MaHoaDon, TenHoaDon, MaKhachHang, NgayTao, DaThanhToan, TongGia) VALUES("
-					+ "'" + s.getMaHoaDon() + "'"
-					+ ",'" + s.getTenHoaDon() + "'"
-					+ ",'" + s.getMaKhachHang() + "'"
-					+ ",'" + s.getNgayTao() + "'"
-					+ ","+ s.isDaThanhToan() +""
-					+ ","+ s.getTongGia() +")"
+			int result = lib.executeUpdate("INSERT INTO KhachHang(ID, HoTen, MatKhau, DiaChi, Email, SoDienThoai, LaNhanVien) VALUES("
+					+ "'" + s.getId() + "'"
+					+ ",'" + s.getHoTen() + "'"
+					+ ",'" + s.getMatKhau() + "'"
+					+ ",'" + s.getDiaChi() + "'"
+					+ ",'" + s.getEmail() + "'"
+					+ ",'"+ s.getSoDienThoai() +"'"
+					+ ","+ false +")"
 					);
 			lib.close();
 			return result;
@@ -56,8 +57,8 @@ public class KhachHangDatabase {
 	}
 	public int DeleteKhachHang(KhachHang s) {
 		try {
-			int result = lib.executeUpdate("DELETE FROM KhachHang WHERE MaHoaDon="
-					+ "'"+ s.getMaHoaDon() +"'"
+			int result = lib.executeUpdate("DELETE FROM KhachHang WHERE ID="
+					+ "'"+ s.getId() +"'"
 					);
 			lib.close();
 			return result;
@@ -72,12 +73,11 @@ public class KhachHangDatabase {
 	public int UpdateKhachHang(KhachHang s) {
 		try {
 			int result = lib.executeUpdate("UPDATE KhachHang SET "
-					+ "TenHoaDon='" + s.getMaHoaDon() + "'"
-				   // + ", MaKhachHang='" + s.getMaKhachHang() + "'"
-				   // + ", NgayTao='" + s.getNgayDat() + "'"
-					+ ", DaThanhToan='" + s.isDaThanhToan() + "'"
-					+ ", TongGia='" + s.getTongGia() + "'"
-					+ " WHERE MaHoaDon='"+ s.getMaHoaDon() +"'"
+					+ "HoTen='" + s.getHoTen() + "'"
+				    + ", DiaChi='" + s.getDiaChi() + "'"
+				    + ", Email='" + s.getEmail() + "'"
+					+ ", SoDienThoai='" + s.getSoDienThoai() + "'"
+					+ " WHERE ID='"+ s.getId() +"'"
 					);
 			lib.close();
 			return result;

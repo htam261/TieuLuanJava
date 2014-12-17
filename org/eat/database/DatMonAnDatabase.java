@@ -40,7 +40,7 @@ public class DatMonAnDatabase {
 					+ ",'" + s.getMaHoaDon() + "'"
 					+ ",'" + s.getMaMonAn() + "'"
 					+ "," + s.getSoLuong() + ""
-					+ ",'"+ s.getNgayDat() +"')"
+					+ ",'"+ s.getNgayDat().getYear() + "/" + s.getNgayDat().getMonth() + "/" + s.getNgayDat().getDate() +"')"
 					);
 			lib.close();
 			return result;
