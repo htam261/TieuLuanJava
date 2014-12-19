@@ -9,6 +9,10 @@ public class MonAnCollection implements Serializable {
 	public MonAnCollection() {
 		ds = new ArrayList<MonAn>();
 	}
+	public MonAnCollection(ArrayList<MonAn> a) {
+		ds = new ArrayList<MonAn>();
+		ds = a;
+	}
 	public int size() {
 		return ds.size();
 	}
@@ -22,10 +26,9 @@ public class MonAnCollection implements Serializable {
 		return ds;
 	}
 	public MonAn getMonAnID(String id) {
-		MonAn s = new MonAn();
-		s.setMaMonAn(id);
-		if (ds.contains(s)) {
-			return ds.get(ds.indexOf(s));
+		for (MonAn k : ds) {
+			if (k.getMaMonAn().equals(id))
+				return k;
 		}
 		return null;
 	}

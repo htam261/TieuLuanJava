@@ -9,6 +9,10 @@ public class NhanVienCollection implements Serializable {
 	public NhanVienCollection() {
 		ds = new ArrayList<NhanVien>();
 	}
+	public NhanVienCollection(ArrayList<NhanVien> a) {
+		ds = new ArrayList<NhanVien>();
+		ds = a;
+	}
 	public int size() {
 		return ds.size();
 	}
@@ -30,12 +34,11 @@ public class NhanVienCollection implements Serializable {
 		return ls;
 	}
 	public NhanVien getNhanVienID(String id) {
-		NhanVien s = new NhanVien();
-		s.setId(id);
-		if (ds.contains(s)) {
-			return ds.get(ds.indexOf(s));
-		}
-		return null;
+			for (NhanVien k : ds) {
+				if (k.getId().equals(id))
+					return k;
+			}
+			return null;
 	}
 	public boolean addNhanVien(NhanVien s) {
 		if (!ds.contains(s)) {

@@ -9,6 +9,10 @@ public class HoaDonCollection implements Serializable {
 	public HoaDonCollection() {
 		ds = new ArrayList<HoaDon>();
 	}
+	public HoaDonCollection(ArrayList<HoaDon> a) {
+		ds = new ArrayList<HoaDon>();
+		ds = a;
+	}
 	public int size() {
 		return ds.size();
 	}
@@ -30,10 +34,9 @@ public class HoaDonCollection implements Serializable {
 		return ls;
 	}
 	public HoaDon getHoaDonID(String id) {
-		HoaDon s = new HoaDon();
-		s.setMaHoaDon(id);
-		if (ds.contains(s)) {
-			return ds.get(ds.indexOf(s));
+		for (HoaDon k : ds) {
+			if (k.getMaHoaDon().equals(id))
+				return k;
 		}
 		return null;
 	}

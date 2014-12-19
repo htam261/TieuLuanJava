@@ -9,6 +9,10 @@ public class KhachHangCollection implements Serializable {
 	public KhachHangCollection() {
 		ds = new ArrayList<KhachHang>();
 	}
+	public KhachHangCollection(ArrayList<KhachHang> a) {
+		ds = new ArrayList<KhachHang>();
+		ds = a;
+	}
 	public int size() {
 		return ds.size();
 	}
@@ -30,10 +34,9 @@ public class KhachHangCollection implements Serializable {
 		return ls;
 	}
 	public KhachHang getKhachHangID(String id) {
-		KhachHang s = new KhachHang();
-		s.setId(id);
-		if (ds.contains(s)) {
-			return ds.get(ds.indexOf(s));
+		for (KhachHang k : ds) {
+			if (k.getId().equals(id))
+				return k;
 		}
 		return null;
 	}

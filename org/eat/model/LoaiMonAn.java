@@ -63,8 +63,7 @@ public class LoaiMonAn implements Comparable<LoaiMonAn>, Serializable {
 	}
 	@Override
 	public String toString() {
-		return "LoaiMonAn \nMa Loai Mon An: " + maLoaiMonAn + "\n Ten Loai: " + tenLoai
-				+ "\n Vung: " + vung + "\n Mo Ta: " + moTa + "\n";
+		return  tenLoai;
 	}
 	public static String printHeader() {
 		return "Ma Loai Mon An     Ten Loai Mon An    Vung    Mo Ta";

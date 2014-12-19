@@ -9,6 +9,10 @@ public class DatMonAnCollection implements Serializable {
 	public DatMonAnCollection() {
 		ds = new ArrayList<DatMonAn>();
 	}
+	public DatMonAnCollection(ArrayList<DatMonAn> a) {
+		ds = new ArrayList<DatMonAn>();
+		ds = a;
+	}
 	public int size() {
 		return ds.size();
 	}
@@ -38,10 +42,9 @@ public class DatMonAnCollection implements Serializable {
 		return ls;
 	}
 	public DatMonAn getDatMonAnID(String id) {
-		DatMonAn s = new DatMonAn();
-		s.setMaDatMonAn(id);
-		if (ds.contains(s)) {
-			return ds.get(ds.indexOf(s));
+		for (DatMonAn k : ds) {
+			if (k.getMaDatMonAn().equals(id))
+				return k;
 		}
 		return null;
 	}

@@ -9,6 +9,10 @@ public class LoaiMonAnCollection implements Serializable {
 	public LoaiMonAnCollection() {
 		ds = new ArrayList<LoaiMonAn>();
 	}
+	public LoaiMonAnCollection(ArrayList<LoaiMonAn> a) {
+		ds = new ArrayList<LoaiMonAn>();
+		ds = a;
+	}
 	public int size() {
 		return ds.size();
 	}
@@ -22,10 +26,9 @@ public class LoaiMonAnCollection implements Serializable {
 		return ds;
 	}
 	public LoaiMonAn getLoaiMonAnID(String id) {
-		LoaiMonAn s = new LoaiMonAn();
-		s.setMaLoaiMonAn(id);
-		if (ds.contains(s)) {
-			return ds.get(ds.indexOf(s));
+		for (LoaiMonAn k : ds) {
+			if (k.getMaLoaiMonAn().equals(id))
+				return k;
 		}
 		return null;
 	}

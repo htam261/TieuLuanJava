@@ -75,11 +75,18 @@ public class MonAnDatabase {
 			int result = lib.executeUpdate("UPDATE MonAn SET "
 					+ "TenMonAn='" + s.getTenMonAn() + "'"
 				    + ", HinhAnh='" + s.getHinhAnh() + "'"
-				    + ", HinhAnh='" + s.getLoai() + "'"
+				    + ", Loai='" + s.getLoai() + "'"
 				    + ", MoTa='" + s.getMoTa() + "'"
 				    + ", Gia=" + s.getGia() + ""
 					+ " WHERE MaMonAn='"+ s.getMaMonAn() +"'"
 					);
+			System.out.println("UPDATE MonAn SET "
+					+ "TenMonAn='" + s.getTenMonAn() + "'"
+				    + ", HinhAnh='" + s.getHinhAnh() + "'"
+				    + ", Loai='" + s.getLoai() + "'"
+				    + ", MoTa='" + s.getMoTa() + "'"
+				    + ", Gia=" + s.getGia() + ""
+					+ " WHERE MaMonAn='"+ s.getMaMonAn() +"'");
 			lib.close();
 			return result;
 		} catch (Exception e) {
