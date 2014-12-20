@@ -11,7 +11,8 @@ public class GUImain extends JFrame implements ActionListener {
 	public GUImain(String id) {
 		this.id = id;
 		setTitle("Quản lý món ăn");
-		setSize(400, 400);
+		setSize(1366, 768);
+		//this.set
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		desktopPane = new JDesktopPane();

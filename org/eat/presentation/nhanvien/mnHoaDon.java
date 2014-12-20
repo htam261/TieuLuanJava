@@ -9,6 +9,7 @@ import java.awt.event.*;
 import org.eat.collection.*;
 import org.eat.database.*;
 import org.eat.model.*;
+
 import javax.swing.event.*;
 
 public class mnHoaDon extends JInternalFrame implements ActionListener, ListSelectionListener {
@@ -21,6 +22,8 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 	public void doShow() {
 		dblma = new LoaiMonAnDatabase();
 		dbma = new MonAnDatabase();
+		dbhd = new HoaDonDatabase();
+		dbdma = new DatMonAnDatabase();
 		setSize(800, 550);
 		addControl("Thông tin hóa đơn");		
 	}
@@ -34,25 +37,18 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 		lblTitle.setForeground(Color.BLUE);
 		pnNorth.add(lblTitle);
 		pnBorder.add(pnNorth, BorderLayout.NORTH);
-		JPanel pnListCate = new JPanel();
-		pnListCate.setLayout(new BoxLayout(pnListCate, BoxLayout.Y_AXIS ));
-		JPanel pnListProduct = new JPanel();
-		JSplitPane slitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pnListCate, pnListProduct);
+		JPanel pnHoaDon = new JPanel();
+		pnHoaDon.setLayout(new BoxLayout(pnHoaDon, BoxLayout.Y_AXIS ));
+		JPanel pnDSHoaDon = new JPanel();
+		JSplitPane slitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pnHoaDon, pnDSHoaDon);
 		pnBorder.add(slitPane, BorderLayout.CENTER);
 		lstHoaDonModel = new DefaultListModel();
-		LoaiMonAnCollection dslma = new LoaiMonAnCollection(dblma.getAllLoaiMonAn());
-		for (int i = 0; i < dslma.size(); i++) {
-			// lstCateModel.addElement(
-			//		dslma.getLoaiMonAn(i).getMaLoaiMonAn()
-			//		+ "." + dslma.getLoaiMonAn(i).getTenLoai());
-			lstHoaDonModel.addElement(dslma.getLoaiMonAn(i));
-		}
-		lstHoaDon = new JList(lstHoaDonModel);
-		//lstCate.addListSelectionListener(this);
+		loadHoaDon();
+		
 		TitledBorder cateBorder = new TitledBorder(BorderFactory.createLineBorder(Color.red),"Danh muc san pham");
 		lstHoaDon.setBorder(cateBorder);
-		pnListCate.setPreferredSize(new Dimension(300, 0));
-		pnListCate.add(lstHoaDon, BorderLayout.NORTH);
+		pnHoaDon.setPreferredSize(new Dimension(300, 0));
+		pnHoaDon.add(lstHoaDon, BorderLayout.NORTH);
 		
 		// List Loai
 		JPanel pnListCateSouth = new JPanel();
@@ -65,24 +61,25 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 		btnCateRemove =new JButton("Remove");
 		btnCateRemove.addActionListener(this);
 		pnListCateSouth.add(btnCateRemove);
-		pnListCate.add(pnListCateSouth,BorderLayout.SOUTH);
+		pnHoaDon.add(pnListCateSouth,BorderLayout.SOUTH);
 		
 		// mon an
-		pnListProduct.setLayout(new BorderLayout());
+		pnDSHoaDon.setLayout(new BorderLayout());
 		JPanel pnProductTitle=new JPanel();
 		JLabel lblProductTitle=new JLabel(title);
 		pnProductTitle.add(lblProductTitle);
-		pnListProduct.add(pnProductTitle, BorderLayout.NORTH);
+		pnDSHoaDon.add(pnProductTitle, BorderLayout.NORTH);
 		JPanel pnProductTable=new JPanel();
 		pnProductTable.setLayout(new BorderLayout());
-		pnListProduct.add(pnProductTable,BorderLayout.CENTER);
+		pnDSHoaDon.add(pnProductTable,BorderLayout.CENTER);
 		dtmDatMonAn =new DefaultTableModel();
+		dtmDatMonAn.addColumn("Mã hóa đơn");
 		dtmDatMonAn.addColumn("Mã món ăn");
 		dtmDatMonAn.addColumn("Tên món ăn");
-		dtmDatMonAn.addColumn("Hình ảnh");
+		dtmDatMonAn.addColumn("Số lượng");
 		dtmDatMonAn.addColumn("Loại");
-		dtmDatMonAn.addColumn("Mô tả");
 		dtmDatMonAn.addColumn("Giá");
+		dtmDatMonAn.addColumn("Mô tả");
 		tblDatMonAn=new JTable(dtmDatMonAn);
 		loadTable();
 		JScrollPane sctblproduct=new JScrollPane(tblDatMonAn );
@@ -90,7 +87,7 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 		tblDatMonAn.setRowSorter(sorter);
 		pnProductTable.add(sctblproduct,BorderLayout.CENTER);
 		JPanel pnProductDetail=new JPanel();
-		pnListProduct.add(pnProductDetail,BorderLayout.SOUTH);
+		pnDSHoaDon.add(pnProductDetail,BorderLayout.SOUTH);
 		pnProductDetail.setLayout(new BoxLayout(pnProductDetail, BoxLayout.Y_AXIS ));
 		
 		// Chi tiet mon an
@@ -161,10 +158,10 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					if (lstHoaDon.getSelectedIndex() != -1) {
-						LoaiMonAn l = (LoaiMonAn) lstHoaDon.getSelectedValue();
-						lmaSelected = l;
-						cboCateList.setSelectedItem(lmaSelected);
-						sorter.setRowFilter(RowFilter.regexFilter(l.getMaLoaiMonAn()));
+						HoaDon h = (HoaDon) lstHoaDon.getSelectedValue();
+						hdSelected = h;
+						//cboCateList.setSelectedItem(lmaSelected);
+						sorter.setRowFilter(RowFilter.regexFilter(h.getMaHoaDon()));
 					}
 				}
 			}
@@ -180,7 +177,7 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 			public void mouseEntered(MouseEvent arg0) {}			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (tblDatMonAn.getSelectedRow() != -1) {
+				/*if (tblDatMonAn.getSelectedRow() != -1) {
 					int row = tblDatMonAn.getSelectedRow();
 					MonAn m = new MonAn(tblDatMonAn.getValueAt(row, 0).toString()
 							, tblDatMonAn.getValueAt(row, 1).toString()
@@ -191,22 +188,36 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 							);
 					maSelected = m;
 					setMonAnValue(m);
-				}
+				}*/
 			}
 		});
 	}
 	public void loadTable() {
 		colma = new MonAnCollection(dbma.getAllMonAn());
 		collma = new LoaiMonAnCollection(dblma.getAllLoaiMonAn());
+		coldma = new DatMonAnCollection(dbdma.getAllDatMonAn());
 		for (int i = 0; i < dtmDatMonAn.getRowCount(); i++) {
 			dtmDatMonAn.setDataVector(null, header);
 		}
-		for (int i = 0; i < colma.size(); i++) {
-			MonAn m = colma.getMonAn(i);
-			LoaiMonAn l = collma.getLoaiMonAnID(m.getLoai());
-			dtmDatMonAn.addRow(new Object[] {
-					m.getMaMonAn(), m.getTenMonAn(),m.getHinhAnh(), l.getTenLoai() ,m.getMoTa(),m.getGia()
-			});
+		if (hdSelected == null) {
+			for (int i = 0; i < coldma.size(); i++) {
+				DatMonAn d = coldma.getDatMonAn(i);
+				MonAn m = colma.getMonAnID(d.getMaMonAn());
+				LoaiMonAn l = collma.getLoaiMonAnID(m.getLoai());
+				dtmDatMonAn.addRow(new Object[] {
+						d.getMaHoaDon(), m.getMaMonAn(), m.getTenMonAn(), d.getSoLuong(), l.getTenLoai(), m.getGia(), m.getMoTa()
+				});
+			}
+		} else {
+			DatMonAnCollection cold = new DatMonAnCollection(coldma.getAllDatMonAn_MaHoaDon(hdSelected.getMaHoaDon()));
+			for (int i = 0; i < cold.size(); i++) {
+				DatMonAn d = cold.getDatMonAn(i);
+				MonAn m = colma.getMonAnID(d.getMaMonAn());
+				LoaiMonAn l = collma.getLoaiMonAnID(m.getLoai());
+				dtmDatMonAn.addRow(new Object[] {
+						d.getMaHoaDon(), m.getMaMonAn(), m.getTenMonAn(), d.getSoLuong(), l.getTenLoai(), m.getGia(), m.getMoTa()
+				});
+			}
 		}
 	}
 	public void loadCombobox() {
@@ -216,11 +227,16 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 			}
 		
 	}
-	public void loadLoaiMonAn() {
+	public void loadHoaDon() {
 		lstHoaDonModel = new DefaultListModel();
-		LoaiMonAnCollection dslma = new LoaiMonAnCollection(dblma.getAllLoaiMonAn());
-		for (int i = 0; i < dslma.size(); i++) {
-			lstHoaDonModel.addElement(dslma.getLoaiMonAn(i).toString());
+		HoaDonCollection dshd = new HoaDonCollection(dbhd.getAllHoaDon());
+		if (dshd.size() != 0) {
+		for (int i = 0; i < dshd.size(); i++) {
+			lstHoaDonModel.addElement(dshd.getHoaDon(i).toString());
+		}
+		lstHoaDon = new JList(lstHoaDonModel);
+		} else {
+			JOptionPane.showMessageDialog(null, "not null");
 		}
 	}
 	
@@ -257,7 +273,6 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 		m.setGia(Double.parseDouble(txtGia.getText()));
 		return m;
 	}
-	public static ArrayList listData;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(btnCateNew)) {
@@ -293,7 +308,7 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 	@Override
 	public void valueChanged(ListSelectionEvent e) {}
 	private static boolean them = false;
-	private String[] header = new String[] {"Mã món ăn","Tên món ăn","Hình ảnh","Loại", "Mô tả", "Giá"};
+	private String[] header = new String[] {"Mã hóa đơn","Mã món ăn","Tên món ăn","Số lượng","Loại", "Giá", "Mô tả"};
 	private static final long serialVersionUID = 1L;
 	private static JList lstHoaDon;
 	private static DefaultListModel lstHoaDonModel;
@@ -312,4 +327,9 @@ public class mnHoaDon extends JInternalFrame implements ActionListener, ListSele
 	private static LoaiMonAn lmaSelected;
 	private static MonAn maSelected;
 	private static String id;
+	private static DatMonAnDatabase dbdma;
+	private static DatMonAnCollection coldma;
+	private static HoaDonDatabase dbhd;
+	private static HoaDonCollection colhd;
+	private static HoaDon hdSelected;
 }

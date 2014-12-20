@@ -18,15 +18,17 @@ public class HoaDonDatabase {
 				HoaDon s = new HoaDon(
 							rs.getString("MaHoaDon")
 							, rs.getString("TenHoaDon")
-							, rs.getString("MaKhachHang")
+							, rs.getString("KhachHang")
 							, rs.getDate("NgayTao")
 							, rs.getBoolean("DaThanhToan")
 							, rs.getDouble("TongGia")
 							);
+				System.out.println(s);
 				collection.addHoaDon(s);
 			}
 			return collection.getAllHoaDon();
 		} catch(Exception e) {
+			e.printStackTrace();
 			lib.close();
 		} finally {
 			lib.close();

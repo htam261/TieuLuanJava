@@ -90,9 +90,7 @@ public class HoaDon implements Serializable, Comparable<HoaDon> {
 	}
 	@Override
 	public String toString() {
-		return "HoaDon \nMa Hoa Don: " + maHoaDon + "\n Ten Hoa Don: " + tenHoaDon
-				+ "\n Ma Khach Hang: " + maKhachHang + "\n Ngay Tao: " + ngayTao
-				+ "\n Da Thanh Toan: " + daThanhToan + "\n Tong Gia: " + tongGia + "\n";
+		return maHoaDon + "." + tenHoaDon;
 	}
 	public static String printHeader() {
 		return "Ma Hoa Don     Ten Hoa Don    Ma Khach Hang    Ngay Tao		Da Thanh Toan	Tong Gia";

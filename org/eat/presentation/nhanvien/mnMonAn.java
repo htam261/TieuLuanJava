@@ -3,6 +3,7 @@ package org.eat.presentation.nhanvien;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.border.*;
 import javax.swing.table.*;
 import java.awt.event.*;
@@ -157,7 +158,8 @@ public class mnMonAn extends JInternalFrame implements ActionListener, ListSelec
 						LoaiMonAn l = (LoaiMonAn) lstCate.getSelectedValue();
 						lmaSelected = l;
 						cboCateList.setSelectedItem(lmaSelected);
-						sorter.setRowFilter(RowFilter.regexFilter(l.getMaLoaiMonAn()));
+						//sorter.setRowFilter(RowFilter.regexFilter(l.getMaLoaiMonAn()));
+						//RowFilter.numberFilter(ComparisonType.EQUAL, 1);
 					}
 				}
 			}
@@ -173,7 +175,7 @@ public class mnMonAn extends JInternalFrame implements ActionListener, ListSelec
 			public void mouseEntered(MouseEvent arg0) {}			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (tblProduct.getSelectedRow() != -1) {
+				/*if (tblProduct.getSelectedRow() != -1) {
 					int row = tblProduct.getSelectedRow();
 					MonAn m = new MonAn(tblProduct.getValueAt(row, 0).toString()
 							, tblProduct.getValueAt(row, 1).toString()
@@ -184,7 +186,7 @@ public class mnMonAn extends JInternalFrame implements ActionListener, ListSelec
 							);
 					maSelected = m;
 					setMonAnValue(m);
-				}
+				}*/
 			}
 		});
 	}
