@@ -2,6 +2,7 @@ package org.eat.database;
 
 import java.sql.*;
 import java.util.*;
+
 import org.eat.model.*;
 import org.eat.collection.*;
 
@@ -32,7 +33,22 @@ public class DatMonAnDatabase {
 		}
 		return null;
 	}
-	
+	public ArrayList<DatMonAn> getMaMonAn(String mahd){
+		try {
+			ResultSet rs=lib.executeQuery("Select * from DatMonAn where MaHoaDon like '%"+mahd+"%'");
+			ArrayList<DatMonAn> s=new ArrayList<>();
+			while(rs.next()){
+				DatMonAn d=new DatMonAn(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5));
+				s.add(d);
+			}
+			return s;
+		} catch (Exception e) {
+			lib.close();
+		}finally{
+			lib.close();
+		}
+		return null;
+	}
 	public int InsertDatMonAn(DatMonAn s) {
 		try {
 			int result = lib.executeUpdate("INSERT INTO DatMonAn(MaDatMonAn, MaHoaDon, MaMonAn, SoLuong, NgayDat) VALUES("
@@ -66,6 +82,17 @@ public class DatMonAnDatabase {
 			lib.close();
 		}
 		return -1;
+	}
+	public int updateSoLuong(String mamonan, int soluong){
+		try {
+			String sql="Update DatMonAn set SoLuong ="+soluong+" where MaMonAn = '"+mamonan+"'";
+			int kq=lib.executeUpdate(sql);
+			return kq;
+		} catch (Exception e) {
+			// TODO: handle exception
+			lib.close();
+		}
+		return 0;
 	}
 	public int UpdateDatMonAn(DatMonAn s) {
 		try {

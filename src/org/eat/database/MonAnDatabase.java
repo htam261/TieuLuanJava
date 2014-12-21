@@ -67,6 +67,7 @@ public class MonAnDatabase {
 					str=" gia between 50000 and 100000";
 				else if(gia == 2)
 						str=" gia > 100000";
+					else str=" gia > 0";
 			ResultSet rs;
 			sql="SELECT * FROM MonAn where Loai like '%"+maloai+"%' and "+str;
 			rs = lib.executeQuery(sql);
@@ -100,6 +101,7 @@ public class MonAnDatabase {
 					str=" gia between 50000 and 100000";
 				else if(gia == 2)
 						str=" gia > 100000";
+					else str=" gia > 0";
 			ResultSet rs;
 			sql="SELECT * FROM MonAn where Loai like '%"+maloai+"%' and "+str+" and tenmonan like '%"+tenmonan+"%'";
 			rs = lib.executeQuery(sql);

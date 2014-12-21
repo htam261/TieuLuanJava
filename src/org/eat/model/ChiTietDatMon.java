@@ -10,7 +10,7 @@ public class ChiTietDatMon implements Comparable<ChiTietDatMon>, Serializable {
 	private double gia;
 //	private Date ngaydat;
 	public ChiTietDatMon(){
-		this("","",0,0.0);
+		this("","",0,0);
 	}
 	public ChiTietDatMon(String mamon, String tenmon,
 			int soluong, double gia) {

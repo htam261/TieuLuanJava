@@ -14,11 +14,14 @@ public class ChiTietDatMonCollection {
 	public int size() {
 		return ds.size();
 	}
-	public ArrayList<ChiTietDatMon> addChiTietMonAn(ChiTietDatMon s) {
+	public boolean addChiTietMonAn(ChiTietDatMon s) {
 		if (!ds.contains(s)) {
 			ds.add(s);
-			return ds;
+			return true;
 		}
-		return null;
+		return false;
+	}
+	public ArrayList<ChiTietDatMon> getAllDatMon() {
+		return ds;
 	}
 }
