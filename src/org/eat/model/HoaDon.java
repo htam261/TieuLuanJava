@@ -4,48 +4,59 @@ import java.io.Serializable;
 import java.util.*;
 
 public class HoaDon implements Serializable, Comparable<HoaDon> {
-	
+
 	public String getMaHoaDon() {
 		return maHoaDon;
 	}
+
 	public void setMaHoaDon(String maHoaDon) {
 		this.maHoaDon = maHoaDon;
 	}
+
 	public String getTenHoaDon() {
 		return tenHoaDon;
 	}
+
 	public void setTenHoaDon(String tenHoaDon) {
 		this.tenHoaDon = tenHoaDon;
 	}
+
 	public String getMaKhachHang() {
 		return maKhachHang;
 	}
+
 	public void setMaKhachHang(String maKhachHang) {
 		this.maKhachHang = maKhachHang;
 	}
+
 	public Date getNgayTao() {
 		return ngayTao;
 	}
+
 	public void setNgayTao(Date ngayTao) {
 		this.ngayTao = ngayTao;
 	}
+
 	public boolean isDaThanhToan() {
 		return daThanhToan;
 	}
+
 	public void setDaThanhToan(boolean daThanhToan) {
 		this.daThanhToan = daThanhToan;
 	}
+
 	public double getTongGia() {
 		return tongGia;
 	}
+
 	public void setTongGia(double tongGia) {
 		this.tongGia = tongGia;
 	}
-	
+
 	public HoaDon() {
-		this("","","",new Date(),false, 0);
+		this("", "", "", new Date(), false, 0);
 	}
-	
+
 	public HoaDon(String maHoaDon, String tenHoaDon, String maKhachHang,
 			Date ngayTao, boolean daThanhToan, double tongGia) {
 		super();
@@ -56,7 +67,7 @@ public class HoaDon implements Serializable, Comparable<HoaDon> {
 		this.daThanhToan = daThanhToan;
 		this.tongGia = tongGia;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,6 +78,7 @@ public class HoaDon implements Serializable, Comparable<HoaDon> {
 				+ ((maKhachHang == null) ? 0 : maKhachHang.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,17 +100,21 @@ public class HoaDon implements Serializable, Comparable<HoaDon> {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return maHoaDon + "." + tenHoaDon;
 	}
+
 	public static String printHeader() {
 		return "Ma Hoa Don     Ten Hoa Don    Ma Khach Hang    Ngay Tao		Da Thanh Toan	Tong Gia";
 	}
+
 	@Override
 	public int compareTo(HoaDon o) {
 		return this.getMaHoaDon().compareTo(o.getMaHoaDon());
 	}
+
 	private String maHoaDon;
 	private String tenHoaDon;
 	private String maKhachHang;

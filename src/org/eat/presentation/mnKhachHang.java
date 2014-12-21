@@ -7,7 +7,7 @@ import org.eat.model.*;
 
 public class mnKhachHang extends JInternalFrame {
 	public mnKhachHang(String title) {
-		super(title, true, true,true,true);
-		setSize(200, 200);	
+		super(title, true, true, true, true);
+		setSize(200, 200);
 	}
 }

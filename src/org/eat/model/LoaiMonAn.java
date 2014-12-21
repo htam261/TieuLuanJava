@@ -6,27 +6,35 @@ public class LoaiMonAn implements Comparable<LoaiMonAn>, Serializable {
 	public String getMaLoaiMonAn() {
 		return maLoaiMonAn;
 	}
+
 	public void setMaLoaiMonAn(String maLoaiMonAn) {
 		this.maLoaiMonAn = maLoaiMonAn;
 	}
+
 	public String getTenLoai() {
 		return tenLoai;
 	}
+
 	public void setTenLoai(String tenLoai) {
 		this.tenLoai = tenLoai;
 	}
+
 	public String getVung() {
 		return vung;
 	}
+
 	public void setVung(String vung) {
 		this.vung = vung;
 	}
+
 	public String getMoTa() {
 		return moTa;
 	}
+
 	public void setMoTa(String moTa) {
 		this.moTa = moTa;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,6 +44,7 @@ public class LoaiMonAn implements Comparable<LoaiMonAn>, Serializable {
 		result = prime * result + ((tenLoai == null) ? 0 : tenLoai.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -57,20 +66,25 @@ public class LoaiMonAn implements Comparable<LoaiMonAn>, Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public int compareTo(LoaiMonAn o) {
 		return this.maLoaiMonAn.compareTo(o.getMaLoaiMonAn());
 	}
+
 	@Override
 	public String toString() {
-		return  tenLoai;
+		return tenLoai;
 	}
+
 	public static String printHeader() {
 		return "Ma Loai Mon An     Ten Loai Mon An    Vung    Mo Ta";
 	}
+
 	public LoaiMonAn() {
-		this("","","","");
+		this("", "", "", "");
 	}
+
 	public LoaiMonAn(String maLoaiMonAn, String tenLoai, String vung,
 			String moTa) {
 		super();

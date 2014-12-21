@@ -12,13 +12,15 @@ public class GUImain extends JFrame implements ActionListener {
 		this.id = id;
 		setTitle("Quản lý món ăn");
 		setSize(1366, 768);
-		//this.set
+		// this.set
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		desktopPane = new JDesktopPane();
-		this.setContentPane(desktopPane);		
+		this.setContentPane(desktopPane);
 		addMenu();
+		this.setRootPaneCheckingEnabled(true);
 	}
+
 	public void addMenu() {
 		mn = new JMenuBar();
 		this.setJMenuBar(mn);
@@ -27,7 +29,7 @@ public class GUImain extends JFrame implements ActionListener {
 		mn.add(mKhachHang = new JMenu("Khách hàng"));
 		mn.add(mMonAn = new JMenu("Món ăn"));
 		mn.add(mHoaDon = new JMenu("Hóa đơn"));
-		
+
 		// Menu File
 		mFileExit = new JMenuItem("Exit");
 		mFileExit.addActionListener(this);
@@ -61,6 +63,7 @@ public class GUImain extends JFrame implements ActionListener {
 		mHoaDon.addActionListener(this);
 		mHoaDon.add(mHoaDonThem);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mFileExit)) {
@@ -69,17 +72,22 @@ public class GUImain extends JFrame implements ActionListener {
 			JInternalFrame mnKhachHang = new mnKhachHang("Quản lý khách hàng");
 			desktopPane.add(mnKhachHang);
 			mnKhachHang.setVisible(true);
-		} else if (e.getSource().equals(mMonAnQuanLy)){
+		} else if (e.getSource().equals(mMonAnQuanLy)) {
 			JInternalFrame mnMonAn = new mnMonAn("Quản lý món ăn");
 			desktopPane.add(mnMonAn);
 			mnMonAn.setVisible(true);
-		} else if (e.getSource().equals(mHoaDonQuanLy)){
+		} else if (e.getSource().equals(mHoaDonQuanLy)) {
 			JInternalFrame mnHoaDon = new mnHoaDon("Quản lý món ăn", id);
 			desktopPane.add(mnHoaDon);
 			mnHoaDon.setVisible(true);
 		}
 	}
-	
+	public JDesktopPane getDesktopPane() {
+		return desktopPane;
+	}
+	public void addDesktopPane(JInternalFrame jif) {
+		desktopPane.add(jif);
+	}
 	private JMenuBar mn;
 	private JMenu fileMenu;
 	private JMenu mNhanVien;
